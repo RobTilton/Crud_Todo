@@ -1,0 +1,21 @@
+# Python/Django-specific ignores
+__pycache__/
+*.pyc
+*.pyo
+
+# Django settings
+settings.py
+local_settings.py
+media/
+db.sqlite3
+
+# IDE or code editor-specific ignores
+.vscode/
+.idea/
+
+# Compiled Python files
+*.pyc
+*.pyo
+
+# Logs
+logs/
