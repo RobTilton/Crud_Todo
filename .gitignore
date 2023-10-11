@@ -12,6 +12,7 @@ db.sqlite3
 # IDE or code editor-specific ignores
 .vscode/
 .idea/
+_virtual/
 
 # Compiled Python files
 *.pyc
