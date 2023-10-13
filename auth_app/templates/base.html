@@ -9,7 +9,12 @@
 </head>
 <body>
     <header>
-        
+        <div>
+            <form method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </div>
         <h1>{% block header %}Header Content{% endblock %}</h1>
        
     </header>
