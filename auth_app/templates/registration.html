@@ -5,7 +5,11 @@
 {% block header %} <center><h1>Sign Up Below</h1></center> {% endblock %}
 
 {% block content %}
-
-Placeholder Registration
-
+<div>
+    <form method="post">
+        {% csrf_token %}
+            {{ form.as_p }}
+        <button type="submit">Register</button>
+    </form>
+</div>
 {% endblock %}
