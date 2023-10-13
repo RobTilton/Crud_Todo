@@ -5,5 +5,11 @@
 {% block header %} <center><h2>What todo Today?</h2></center> {% endblock %}
 
 {% block content %}
-Stuff goes here
+<div>
+    {% if user.is_authenticated %}
+    <center><h3>Welcome, {{ user.username }}!</h3></center>
+    {% else %}
+    <center><h3>Welcome, Guest!</h3></center>
+    {% endif %}
+</div>
 {% endblock %}
