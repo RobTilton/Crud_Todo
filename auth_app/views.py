@@ -3,9 +3,6 @@ from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
 from . import models
 
-def Home(request):
-    return render(request, 'home.html')
-
 
 def Registration(request):
     if request.method == 'POST':
