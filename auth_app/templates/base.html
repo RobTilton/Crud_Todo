@@ -5,14 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>{% block title %}Your Page Title{% endblock %}</title>
-       
+    
+    <style>
+        .navbar {
+            background-color: #888;
+            border: 2px solid #000;
+            display: flex;
+            justify-content: flex-start;
+            padding: 0;
+            margin: 0;
+        }
+    
+        .sidebutton {
+            background-color: #fff;
+            color: #338;
+            padding: 10px 20px;
+            border: 2px solid #;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 15px;
+            margin: 3px;
+          
+        }
+    </style>
+
+    <div class="navbar">
+        <center>
+            <button class='sidebutton' onclick="window.location='{% url 'logout' %}';"><strong>Logout</strong></button>
+            <button class='sidebutton'><strong>Placeholder</strong></button>
+            <button class='sidebutton'><strong>Placeholder</strong></button>
+            <button class='sidebutton'><strong>Placeholder</strong></button>
+            <button class='sidebutton'><strong>Placeholder</strong></button>
+        </center>
+    </div>
+
 </head>
 <body>
     <header>
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <center><button type="submit">Logout</button></center>
-        </form>
+        
         <h1>{% block header %} {% endblock %}</h1>
        
     </header>

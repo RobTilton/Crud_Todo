@@ -1,64 +1,40 @@
 {% extends 'base.html' %}
 
-{% block title %} ToDo {% endblock %}
+{% block title %}Todo{% endblock %}
 
-{% block header %} <center><h2>What todo Today?</h2></center> {% endblock %}
+{% block header %}{% endblock %}
 
 
 
 {% block content %}
 <style>
-
-    .sidebar {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 4%;
-    min-width: 100px;
-    background-color: #338;
+    .profile-panel {
+        background-color: #ddd;
+        border: 2px solid #000;
+        left: 0;
+        top: 40px;
+        
+        width: 48%;
+        height: 87vh;
+        padding: 10px;
     }
-
-    .sidebutton {
-        background-color: #fff;
-        color: #338;
-        padding: 10px 20px;
-        border: 2px;
-        padding: 8px;
-        cursor: pointer;
-        border-radius: 15px;
-        width: 88%;
-        margin-top: 5px;
+    .top-profile-panel {
         
     }
-
 </style>
 
 <div>
-    <div class="sidebar">
-        
-        
-        <center>
-            <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit" class='sidebutton'><strong>Logout</strong></button>
-            </form>
-                <button class='sidebutton'><strong>Test</strong></button>
-                <button class='sidebutton'><strong>Test</strong></button>
-                <button class='sidebutton'><strong>Test</strong></button>
-                <button class='sidebutton'><strong>Test</strong></button>
-        </center>
-            
-        
+    
+    <div class='profile-panel'>
+        <div>
+            {% if user.is_authenticated %}
+            <center><h3>Welcome, {{ user.username }}!</h3></center>
+            {% else %}
+            <center><h3>Welcome, Guest!</h3></center>
+            {% endif %}
+        </div>
+       
     </div>
-
-    {% if user.is_authenticated %}
-    <center><h3>Welcome, {{ user.username }}!</h3></center>
-    {% else %}
-    <center><h3>Welcome, Guest!</h3></center>
-    {% endif %}
-
 
 </div>
 {% endblock %}
