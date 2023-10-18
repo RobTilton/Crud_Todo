@@ -31,8 +31,8 @@
 
     <div class="navbar">
         <center>
-            <button class='navbutton' onclick="window.location='{% url 'logout' %}';"><strong>Logout</strong></button>
-            <button class='navbutton' onclick="window.location='{% url 'new_list' %}';"><strong>New List</strong></button>
+            <a href={% url 'logout' %}><button class="navbutton"><strong>Logout</strong></button></a>
+            <a href={% url 'new_list' %}><button class="navbutton"><strong>New List</strong></button></a>
             <button class='navbutton'><strong>Placeholder</strong></button>
             <button class='navbutton'><strong>Placeholder</strong></button>
             <button class='navbutton'><strong>Placeholder</strong></button>
