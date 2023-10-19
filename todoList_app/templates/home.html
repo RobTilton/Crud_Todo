@@ -13,7 +13,6 @@
         border: 2px solid #000;
         border-radius: 25px;
         left: 0;
-        right: 0;
         bottom: 20px;
         top: 40px;
     
@@ -23,17 +22,42 @@
     }
 
     .list-panel {
+        float: left;
         border: 2px solid #000;
         border-radius: 25px;
         padding: 10px;
         background-color: #fff;
-        width: 30%;
+        height: 97%;
+        width: 8%;
         margin-right: 10px;
     }
+
     .greeting {
         position: absolute;
         top: 35px;
-        left: 
+    }
+    
+    .todo-panel {
+        float: right;
+        top: 0; 
+        width: 45%;
+        height: 97%;
+        background-color: #fff;
+        border: 2px solid #000;
+        padding: 10px;
+        border-radius: 25px;
+    }
+
+    .actions-panel {
+        float: left;
+        background-color: #fff;
+        border: 2px solid #000;
+        padding: 10px;
+        border-radius: 25px;
+        width: 41%;
+        margin-left: 10px;
+        margin-right: 10px;
+        height: 97%;
     }
 
     .list-button {
@@ -52,6 +76,7 @@
     .list-button:hover {
         background-color: #0056b3; 
     }
+
     
 </style>
 
@@ -59,20 +84,31 @@
     
     <div class='profile-panel'>
         <div class="list-panel">
-        <h3><strong>Your Todo Lists:</strong></h3>
+            <h3><strong>Your Todo Lists:</strong></h3>
+
             {% for todo_list in user_lists %}
-                <a href="{% url 'home' %}" class="btn btn-primary list-button">
+                <a href="{% url 'home' %}" class="btn btn-primary list-button"> <!-- Set up a way to view each list, or even to display it on the other side of the page-->
                     {{ todo_list.name }}
-                </a>
-                <br/>
+                </a><br/>
             {% endfor %}
         </div>
+
         <div class='greeting'>
             {% if user.is_authenticated %}
                 <center><h3>Welcome, {{ user.username }}!</h3></center>
             {% else %}
                 <center><h3>Welcome, Guest!</h3></center>
             {% endif %}
+        </div>
+        
+        <div class='actions-panel'>
+            <center><h3>Actions:</h3></center>
+            <!-- place holder for actions, add, change, delete -->
+        </div>
+
+        <div class='todo-panel'>
+            <center><h3>List of Items:</h3></center>
+            <!-- place holder for list display logic -->
         </div>
         
     </div>
