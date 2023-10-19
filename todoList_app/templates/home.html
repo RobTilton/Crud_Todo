@@ -11,30 +11,70 @@
     .profile-panel {
         background-color: #ddd;
         border: 2px solid #000;
+        border-radius: 25px;
         left: 0;
+        right: 0;
+        bottom: 20px;
         top: 40px;
-        
-        width: 48%;
+    
+        width: 98.75%;
         height: 87vh;
         padding: 10px;
     }
-    .top-profile-panel {
-        
+
+    .list-panel {
+        border: 2px solid #000;
+        border-radius: 25px;
+        padding: 10px;
+        background-color: #fff;
+        width: 30%;
+        margin-right: 10px;
     }
+    .greeting {
+        position: absolute;
+        top: 35px;
+        left: 
+    }
+
+    .list-button {
+        margin: 10px 0;
+        background-color: #007BFF;
+        color: #fff;
+        border: 2px solid #000;
+        border-radius: 25px;
+        display: inline-block;
+        padding: 10px 20px;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    .list-button:hover {
+        background-color: #0056b3; 
+    }
+    
 </style>
 
 <div>
     
     <div class='profile-panel'>
-        
-        <div>
+        <div class="list-panel">
+        <h3><strong>Your Todo Lists:</strong></h3>
+            {% for todo_list in user_lists %}
+                <a href="{% url 'home' %}" class="btn btn-primary list-button">
+                    {{ todo_list.name }}
+                </a>
+                <br/>
+            {% endfor %}
+        </div>
+        <div class='greeting'>
             {% if user.is_authenticated %}
-            <center><h3>Welcome, {{ user.username }}!</h3></center>
+                <center><h3>Welcome, {{ user.username }}!</h3></center>
             {% else %}
-            <center><h3>Welcome, Guest!</h3></center>
+                <center><h3>Welcome, Guest!</h3></center>
             {% endif %}
         </div>
-       
+        
     </div>
 
 </div>

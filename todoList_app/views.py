@@ -6,7 +6,8 @@ from .forms import TodoListForm
 
 @login_required
 def Home(request):
-    return render(request, 'home.html')
+    user_lists = TodoList.objects.filter(user=request.user)
+    return render(request, 'home.html', {'user_lists': user_lists})
 
 
 @login_required
