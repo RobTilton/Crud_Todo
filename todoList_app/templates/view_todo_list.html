@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Todo List{% endblock %}
+
+{% block content %}
+<style>
+    <!-- TODO: Style the todo list -->
+</style>
+
+<div class='todo-panel'>
+    <center><h3>List of Items:</h3></center>
+    {% if todo_list %}
+        <h2>{{ todo_list.name }}</h2>
+        <ul>
+            {% for item in todo_items %}
+                <li>{{ item.name }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No such todo list exists.</p>
+    {% endif %}
+</div>
+{% endblock %}

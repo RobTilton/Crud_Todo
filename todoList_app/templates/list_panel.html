@@ -1,0 +1,8 @@
+<div class="list-panel">
+    <h3><strong>Your Todo Lists:</strong></h3>
+    {% for todo_list in user_lists %}
+        <a href="{% url 'view_todo_list' todo_list.id %}" class="list-button">
+            {{ todo_list.name }}
+        </a><br/>
+    {% endfor %}
+</div>
