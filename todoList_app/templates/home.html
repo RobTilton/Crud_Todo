@@ -103,6 +103,14 @@
         
         <div class='actions-panel'>
             <center><h3>Actions:</h3></center>
+            <div class="container">
+                <h2> Create a new todo list </h2>
+                <form method='post' action="{% url 'new_list' %}">
+                    {% csrf_token %}
+                    {{form.as_ul}}
+                    <button type='submit' class='btn btn-primary'>Create List</button>
+                </form>
+            </div>
             <!-- place holder for actions, add, change, delete -->
         </div>
 

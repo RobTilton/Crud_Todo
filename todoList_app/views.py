@@ -7,11 +7,6 @@ from .forms import TodoListForm
 @login_required
 def Home(request):
     user_lists = TodoList.objects.filter(user=request.user)
-    return render(request, 'home.html', {'user_lists': user_lists})
-
-
-@login_required
-def ListCreation(request):
     if request.method == 'POST':
         form = TodoListForm(request.POST)
         if form.is_valid():
@@ -21,5 +16,6 @@ def ListCreation(request):
             return redirect('home')
     else:
         form = TodoListForm()
-    return render(request, 'new_list.html', {'form': form})
+    return render(request, 'home.html', {'user_lists': user_lists, 'form': form})
+
 
