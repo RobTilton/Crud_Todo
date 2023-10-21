@@ -77,14 +77,18 @@
 
 
 <div class="profile-panel">
+    
     {% include 'list_panel.html' %}  <!-- Include the List Panel template -->
     {% include 'actions_panel.html' %}  <!-- Include the Actions Panel template -->
     
     <div class="todo-panel">
+        
         {% if selected_todo_list %}
             <a href="{% url 'home' %}" class="back-to-home-button">Back to Home</a>
         {% endif %}
+        
         <center><h3>List of Items:</h3></center>
+        
         {% if selected_todo_list %}
             <h2>{{ selected_todo_list.name }}</h2>
             <ul>
@@ -92,7 +96,9 @@
                     <li>{{ item.name }}</li>
                 {% endfor %}
             </ul>
+        
         {% endif %}
+    
     </div>
 </div>
 {% endblock %}

@@ -7,6 +7,12 @@
             {{ form.as_ul }}
             <button type="submit" class="btn btn-primary">Create List</button>
         </form>
+        <br/>
+        <br/>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" name="delete_list" class="delete-button">Delete List</button>
+        </form>
     </div>
     <!-- Placeholder for other actions (add, change, delete) -->
 </div>

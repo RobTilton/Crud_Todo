@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseNotFound
 from .models import TodoList, TodoItem
 from .forms import TodoListForm
 
@@ -30,7 +31,11 @@ def View_Todo_List(request, todo_list_id):
         todo_list = TodoList.objects.get(pk=todo_list_id)
         todo_items = TodoItem.objects.filter(todo_list=todo_list)
     except TodoList.DoesNotExist:
-        todo_list = None
-        todo_items = []
+        return HttpResponseNotFound('Todo list not found')
+
+    # Handle the deletion of a todo list
+    if request.method == 'POST' and 'delete_list' in request.POST:
+        todo_list.delete()
+        return redirect('home')
     
     return render(request, 'home.html', {'user_lists': user_lists, 'selected_todo_list': todo_list, 'todo_items': todo_items, 'form': TodoListForm()})
