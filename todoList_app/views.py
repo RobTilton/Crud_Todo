@@ -25,6 +25,9 @@ def Home(request):
     
     
 
+def Handle_Delete_List(request, todo_list):
+    todo_list.delete()
+    return redirect('home')
 
 
 
@@ -39,7 +42,6 @@ def View_Todo_List(request, todo_list_id):
 
     # Handle the deletion of a todo list
     if request.method == 'POST' and 'delete_list' in request.POST:
-        todo_list.delete()
-        return redirect('home')
+        return Handle_Delete_List(request, todo_list)
     
     return render(request, 'home.html', {'user_lists': user_lists, 'selected_todo_list': todo_list, 'todo_items': todo_items, 'form': TodoListForm()})
