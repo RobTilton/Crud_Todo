@@ -5,21 +5,25 @@ from .models import TodoList, TodoItem
 from .forms import TodoListForm
 
 
+def handle_todo_list_creation(request):
+    form = TodoListForm(request.POST)
+    if form.is_valid():
+        new_list = form.save(commit=False)
+        new_list.user = request.user
+        new_list.save()
+        return redirect('home')
+
+
 @login_required
 def Home(request):
     if request.method == 'POST':
-        form = TodoListForm(request.POST)
-        if form.is_valid():
-            new_list = form.save(commit=False)
-            new_list.user = request.user
-            new_list.save()
-            return redirect('home')
+        return handle_todo_list_creation(request)
     else:
         form = TodoListForm()
-    
-    user_lists = TodoList.objects.filter(user=request.user)
-    
+        user_lists = TodoList.objects.filter(user=request.user)
     return render(request, 'home.html', {'user_lists': user_lists, 'form': form})
+    
+    
 
 
 
