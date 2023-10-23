@@ -10,6 +10,7 @@
     </div>
     <br/><br/>
 
+    {% if selected_todo_list is not None %}
     <div>
         <form method="post">
             {% csrf_token %}
@@ -18,7 +19,6 @@
     </div>
     <br/><br/>
 
-    {% if selected_todo_list is not None %}
     <div>
         <form method="post" action="{% url 'view_todo_list' todo_list_id=selected_todo_list.id %}">
             {% csrf_token %}

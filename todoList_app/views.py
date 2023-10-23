@@ -6,19 +6,21 @@ from .models import TodoList, TodoItem
 from .forms import TodoListForm, TodoListItemForm
 
 
-def handle_todo_list_creation(request):
+def Handle_Todo_List_Creation(request):
     form = TodoListForm(request.POST)
     if form.is_valid():
         new_list = form.save(commit=False)
         new_list.user = request.user
         new_list.save()
-        return redirect('home')
+        request.session['selected_todo_list_id'] = new_list.id
+        return redirect('view_todo_list', todo_list_id=new_list.id)
+    return redirect('home')
 
 
 @login_required
 def Home(request):
     if request.method == 'POST':
-        return handle_todo_list_creation(request)
+        return Handle_Todo_List_Creation(request)
     else:
         form = TodoListForm()
         user_lists = TodoList.objects.filter(user=request.user)
@@ -39,7 +41,7 @@ def Handle_Item_Creation(request, todo_list):
         new_item = item_form.save(commit=False)
         new_item.todo_list = todo_list
         new_item.save()
-        return redirect('home')
+        return redirect('home.html')
 
 
 
@@ -58,7 +60,6 @@ def View_Todo_List(request, todo_list_id):
     if request.method == 'POST' and 'add_item' in request.POST:
         Handle_Item_Creation(request, todo_list)
 
-    # Handle the deletion of a todo list
     if request.method == 'POST' and 'delete_list' in request.POST:
         return Handle_Delete_List(request, todo_list)
     
