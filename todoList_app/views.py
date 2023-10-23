@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.sessions.models import Session
 from django.http import HttpResponseNotFound
 from .models import TodoList, TodoItem
-from .forms import TodoListForm
+from .forms import TodoListForm, TodoListItemForm
 
 
 def handle_todo_list_creation(request):
@@ -21,7 +22,10 @@ def Home(request):
     else:
         form = TodoListForm()
         user_lists = TodoList.objects.filter(user=request.user)
-    return render(request, 'home.html', {'user_lists': user_lists, 'form': form})
+        
+        selected_todo_list_id = request.session.get('selected_todo_list_id')
+        selected_todo_list = TodoList.objects.filter(user=request.user, id=selected_todo_list_id).first()
+    return render(request, 'home.html', {'user_lists': user_lists, 'form': form, 'selected_todo_list': selected_todo_list})
     
     
 
@@ -29,19 +33,33 @@ def Handle_Delete_List(request, todo_list):
     todo_list.delete()
     return redirect('home')
 
+def Handle_Item_Creation(request, todo_list):
+    item_form = TodoListItemForm(request.POST)
+    if item_form.is_valid():
+        new_item = item_form.save(commit=False)
+        new_item.todo_list = todo_list
+        new_item.save()
+        return redirect('home')
+
 
 
 @login_required
 def View_Todo_List(request, todo_list_id):
     user_lists = TodoList.objects.filter(user=request.user)
+    item_form = TodoListItemForm()
     try:
         todo_list = TodoList.objects.get(pk=todo_list_id)
-        todo_items = TodoItem.objects.filter(todo_list=todo_list)
+        request.session['selected_todo_list_id'] = todo_list.id
     except TodoList.DoesNotExist:
         return HttpResponseNotFound('Todo list not found')
+
+    todo_items = TodoItem.objects.filter(todo_list=todo_list)
+    
+    if request.method == 'POST' and 'add_item' in request.POST:
+        Handle_Item_Creation(request, todo_list)
 
     # Handle the deletion of a todo list
     if request.method == 'POST' and 'delete_list' in request.POST:
         return Handle_Delete_List(request, todo_list)
     
-    return render(request, 'home.html', {'user_lists': user_lists, 'selected_todo_list': todo_list, 'todo_items': todo_items, 'form': TodoListForm()})
+    return render(request, 'home.html', {'user_lists': user_lists, 'selected_todo_list': todo_list, 'todo_items': todo_items, 'form': TodoListForm(), 'item_form': item_form})
