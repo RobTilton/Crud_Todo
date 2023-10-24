@@ -71,7 +71,13 @@ def edit_todo_item(request, item_id):
     form = TodoListItemForm(instance=item)
     if request.method == 'POST':
         form = TodoListItemForm(request.POST, instance=item)
-        if form.is_valid():
-            form.save()
-        return redirect('home')
+        if 'update_item' in request.POST:
+            if form.is_valid():
+                form.save()
+            return redirect('home')
+
+        elif 'delete_item' in request.POST:
+            item.delete()
+            return redirect('home')
+        
     return render(request, 'edit_todo_item.html', {'form': form})
