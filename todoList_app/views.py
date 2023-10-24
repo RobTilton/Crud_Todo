@@ -64,3 +64,14 @@ def View_Todo_List(request, todo_list_id):
         return Handle_Delete_List(request, todo_list)
     
     return render(request, 'home.html', {'user_lists': user_lists, 'selected_todo_list': todo_list, 'todo_items': todo_items, 'form': TodoListForm(), 'item_form': item_form})
+
+
+def edit_todo_item(request, item_id):
+    item = TodoItem.objects.get(pk=item_id)
+    form = TodoListItemForm(instance=item)
+    if request.method == 'POST':
+        form = TodoListItemForm(request.POST, instance=item)
+        if form.is_valid():
+            form.save()
+        return redirect('home')
+    return render(request, 'edit_todo_item.html', {'form': form})

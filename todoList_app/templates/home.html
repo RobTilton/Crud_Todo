@@ -84,16 +84,22 @@
     <div class="todo-panel">
         
         {% if selected_todo_list %}
-            <a href="{% url 'home' %}" class="back-to-home-button">Back to Home</a>
         {% endif %}
         
         <center><h3>List of Items:</h3></center>
         
         {% if selected_todo_list %}
-            <h2>{{ selected_todo_list.name }}</h2>
+            <center><h2>{{ selected_todo_list.name }}</h2></center>
             <ul>
                 {% for item in todo_items %}
                     <li>{{ item.name }}</li>
+                    {% if item.date is not None %}
+                        <li>{{ item.date }}</li>
+                    {% endif %}
+                    {% if item.address is not None %}
+                        <li>{{ item.address }}</li>
+                    {% endif %}
+                    <a href="{% url 'edit_todo_item' item_id=item.id %}">Edit</a>
                 {% endfor %}
             </ul>
         
