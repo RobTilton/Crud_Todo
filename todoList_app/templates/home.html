@@ -94,10 +94,9 @@
                 {% for item in todo_items %}
                     <li>{{ item.name }}</li>
                     {% if item.date is not None %}
-                        <li>{{ item.date }}</li>
-                    {% endif %}
-                    {% if item.address is not None %}
-                        <li>{{ item.address }}</li>
+                        {{ item.date }}<br/>
+                    {% elif item.address is not None %}
+                        {{ item.address }}<br/>
                     {% endif %}
                     <a href="{% url 'edit_todo_item' item_id=item.id %}">Edit</a>
                 {% endfor %}
